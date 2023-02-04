@@ -48,6 +48,7 @@ class DynamicArray:
         Create iterator for loop
         DO NOT CHANGE THIS METHOD IN ANY WAY
         """
+
         self._index = 0
         return self
 
@@ -135,13 +136,41 @@ class DynamicArray:
         """
         TODO: Write this implementation
         """
-        pass
+        # print("self.get_capacity()", self.get_capacity())
+        # print("self.length()", self.length())
+        if new_capacity <= 0:
+            return
+        elif new_capacity < self.length():
+            return
+        else:
+            # print("Chihuahua")
+            new_array = StaticArray(new_capacity)
+            for i in range(0, self.length()):
+                new_array[i] = self._data[i]
+            self._data = new_array
+            self._capacity = new_capacity
 
     def append(self, value: object) -> None:
         """
         TODO: Write this implementation
         """
-        pass
+
+        if self.get_capacity() == self.length():
+            # print("self.get_capacity() BEFORE", self.get_capacity())
+            # Calling resize and passing double of current cap
+            self.resize(self.get_capacity() * 2)
+            # print("self.get_capacity() AFTER", self.get_capacity())
+            self._data[self.length()] = value
+            self._size += 1
+        else:
+            # print("Else 1")
+            # print("cap", self.get_capacity())
+            # print("array", self._data)
+            for i in range(0, self.get_capacity()):
+                if self._data[i] is None:
+                    self._data[i] = value
+                    self._size += 1
+                    return
 
     def insert_at_index(self, index: int, value: object) -> None:
         """
