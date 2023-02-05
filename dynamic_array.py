@@ -263,8 +263,11 @@ class DynamicArray:
         """
         TODO: Write this implementation
         """
-        pass
+        newArray = DynamicArray()
+        for i in range(0, self.length()):
+            newArray.append(map_func(self._data[i]))
 
+        return newArray
     def filter(self, filter_func) -> "DynamicArray":
         """
         TODO: Write this implementation
@@ -464,23 +467,23 @@ if __name__ == "__main__":
     #     except:
     #         print(" --- exception occurred.")
 
-    print("\n# merge example 1")
-    da = DynamicArray([1, 2, 3, 4, 5])
-    da2 = DynamicArray([10, 11, 12, 13])
-    print(da)
-    da.merge(da2)
-    print(da)
-
-    print("\n# merge example 2")
-    da = DynamicArray([1, 2, 3])
-    da2 = DynamicArray()
-    da3 = DynamicArray()
-    da.merge(da2)
-    print(da)
-    da2.merge(da3)
-    print(da2)
-    da3.merge(da)
-    print(da3)
+    # print("\n# merge example 1")
+    # da = DynamicArray([1, 2, 3, 4, 5])
+    # da2 = DynamicArray([10, 11, 12, 13])
+    # print(da)
+    # da.merge(da2)
+    # print(da)
+    #
+    # print("\n# merge example 2")
+    # da = DynamicArray([1, 2, 3])
+    # da2 = DynamicArray()
+    # da3 = DynamicArray()
+    # da.merge(da2)
+    # print(da)
+    # da2.merge(da3)
+    # print(da2)
+    # da3.merge(da)
+    # print(da3)
 
     print("\n# map example 1")
     da = DynamicArray([1, 5, 10, 15, 20, 25])
