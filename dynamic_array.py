@@ -176,7 +176,48 @@ class DynamicArray:
         """
         TODO: Write this implementation
         """
-        pass
+        if (index <0 and index > self.length()):
+            raise DynamicArrayException
+
+        if self.get_capacity() == self.length():
+            self.resize(self.get_capacity() * 2)
+
+        if(self._data[index] is not None):
+            temp = self._data[index]
+            self._data[index]= value
+            self._size += 1
+            #initial_insert = True
+            for i in range(index + 1, self.get_capacity() - self.length()):
+                #if initial_insert:
+                if (self._data[i + 1] is not None):
+                    temp2 = self._data[i]
+                    self._data[i] = temp
+                    temp = temp2
+                else:
+                    self._data[i + 1] = self._data[i]
+                    self._data[i] = temp
+        else:
+            self._data[index] = value
+            self._size += 1
+            # else:
+            #     if (self._data[index] is not None):
+            #         temp = self._data[index]
+            #         self._data[index] = value
+            #         # initial_insert = True
+            #         for i in range(index + 1, self.get_capacity() - self.length()):
+            #             # if initial_insert:
+            #             if (self._data[i + 1] is not None):
+            #                 temp2 = self._data[i]
+            #                 self._data[i] = temp
+            #                 temp = temp2
+            #             else:
+            #                 self._data[i + 1] = self._data[i]
+            #                 self._data[i] = temp
+            #     else:
+            #         self._data[index] = value
+
+        # else:
+        #     raise DynamicArrayException
 
     def remove_at_index(self, index: int) -> None:
         """
@@ -227,39 +268,39 @@ def find_mode(arr: DynamicArray) -> (DynamicArray, int):
 
 if __name__ == "__main__":
 
-    print("\n# resize - example 1")
-    da = DynamicArray()
-
-    # print dynamic array's size, capacity and the contents
-    # of the underlying static array (data)
-    da.print_da_variables()
-    da.resize(8)
-    da.print_da_variables()
-    da.resize(2)
-    da.print_da_variables()
-    da.resize(0)
-    da.print_da_variables()
-
-    print("\n# resize - example 2")
-    da = DynamicArray([1, 2, 3, 4, 5, 6, 7, 8])
-    print(da)
-    da.resize(20)
-    print(da)
-    da.resize(4)
-    print(da)
-
-    print("\n# append - example 1")
-    da = DynamicArray()
-    da.print_da_variables()
-    da.append(1)
-    da.print_da_variables()
-    print(da)
-
-    print("\n# append - example 2")
-    da = DynamicArray()
-    for i in range(9):
-        da.append(i + 101)
-        print(da)
+    # print("\n# resize - example 1")
+    # da = DynamicArray()
+    #
+    # # print dynamic array's size, capacity and the contents
+    # # of the underlying static array (data)
+    # da.print_da_variables()
+    # da.resize(8)
+    # da.print_da_variables()
+    # da.resize(2)
+    # da.print_da_variables()
+    # da.resize(0)
+    # da.print_da_variables()
+    #
+    # print("\n# resize - example 2")
+    # da = DynamicArray([1, 2, 3, 4, 5, 6, 7, 8])
+    # print(da)
+    # da.resize(20)
+    # print(da)
+    # da.resize(4)
+    # print(da)
+    #
+    # print("\n# append - example 1")
+    # da = DynamicArray()
+    # da.print_da_variables()
+    # da.append(1)
+    # da.print_da_variables()
+    # print(da)
+    #
+    # print("\n# append - example 2")
+    # da = DynamicArray()
+    # for i in range(9):
+    #     da.append(i + 101)
+    #     print(da)
 
     print("\n# append - example 3")
     da = DynamicArray()
