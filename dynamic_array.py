@@ -203,31 +203,33 @@ class DynamicArray:
         else:
             self._data[index] = value
             self._size += 1
-            # else:
-            #     if (self._data[index] is not None):
-            #         temp = self._data[index]
-            #         self._data[index] = value
-            #         # initial_insert = True
-            #         for i in range(index + 1, self.get_capacity() - self.length()):
-            #             # if initial_insert:
-            #             if (self._data[i + 1] is not None):
-            #                 temp2 = self._data[i]
-            #                 self._data[i] = temp
-            #                 temp = temp2
-            #             else:
-            #                 self._data[i + 1] = self._data[i]
-            #                 self._data[i] = temp
-            #     else:
-            #         self._data[index] = value
-
-        # else:
-        #     raise DynamicArrayException
 
     def remove_at_index(self, index: int) -> None:
         """
         TODO: Write this implementation
         """
-        pass
+        # Index check
+        if (index < 0 or index > self.length() - 1):
+            raise DynamicArrayException
+            return
+
+        # Capacity check and action
+        if (self.length() < self.get_capacity() / 4 ):
+            if (self.length() > 10):
+                if (self.get_capacity() / 2 < 10):
+                    self.resize(10)
+                else:
+                    self.resize(self.get_capacity() / 2)
+        self._size -= 1
+        for i in range(index, self.length() - index):
+            if(i == self.get_capacity() - 1):
+                self._data[i] = None
+
+            else:
+                self._data[i] = self._data[i + 1]
+
+
+
 
     def slice(self, start_index: int, size: int) -> "DynamicArray":
         """
@@ -306,47 +308,47 @@ if __name__ == "__main__":
     #     da.append(i + 101)
     #     print(da)
 
-    print("\n# append - example 3")
-    da = DynamicArray()
-    for i in range(600):
-        da.append(i)
-    print(da.length())
-    print(da.get_capacity())
-
-    print("\n# insert_at_index - example 1")
-    da = DynamicArray([100])
-    print(da)
-    da.insert_at_index(0, 200)
-    da.insert_at_index(0, 300)
-    da.insert_at_index(0, 400)
-    print(da)
-    da.insert_at_index(3, 500)
-    print(da)
-    da.insert_at_index(1, 600)
-    print(da)
-
-    print("\n# insert_at_index example 2")
-    da = DynamicArray()
-    try:
-        da.insert_at_index(-1, 100)
-    except Exception as e:
-        print("Exception raised:", type(e))
-    da.insert_at_index(0, 200)
-    try:
-        da.insert_at_index(2, 300)
-    except Exception as e:
-        print("Exception raised:", type(e))
-    print(da)
-
-    print("\n# insert at index example 3")
-    da = DynamicArray()
-    for i in range(1, 10):
-        index, value = i - 4, i * 10
-        try:
-            da.insert_at_index(index, value)
-        except Exception as e:
-            print("Cannot insert value", value, "at index", index)
-    print(da)
+    # print("\n# append - example 3")
+    # da = DynamicArray()
+    # for i in range(600):
+    #     da.append(i)
+    # print(da.length())
+    # print(da.get_capacity())
+    #
+    # print("\n# insert_at_index - example 1")
+    # da = DynamicArray([100])
+    # print(da)
+    # da.insert_at_index(0, 200)
+    # da.insert_at_index(0, 300)
+    # da.insert_at_index(0, 400)
+    # print(da)
+    # da.insert_at_index(3, 500)
+    # print(da)
+    # da.insert_at_index(1, 600)
+    # print(da)
+    #
+    # print("\n# insert_at_index example 2")
+    # da = DynamicArray()
+    # try:
+    #     da.insert_at_index(-1, 100)
+    # except Exception as e:
+    #     print("Exception raised:", type(e))
+    # da.insert_at_index(0, 200)
+    # try:
+    #     da.insert_at_index(2, 300)
+    # except Exception as e:
+    #     print("Exception raised:", type(e))
+    # print(da)
+    #
+    # print("\n# insert at index example 3")
+    # da = DynamicArray()
+    # for i in range(1, 10):
+    #     index, value = i - 4, i * 10
+    #     try:
+    #         da.insert_at_index(index, value)
+    #     except Exception as e:
+    #         print("Cannot insert value", value, "at index", index)
+    # print(da)
 
     print("\n# remove_at_index - example 1")
     da = DynamicArray([10, 20, 30, 40, 50, 60, 70, 80])
