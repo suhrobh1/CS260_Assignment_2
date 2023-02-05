@@ -214,20 +214,29 @@ class DynamicArray:
             return
 
         # Capacity check and action
-        if (self.length() < self.get_capacity() / 4 ):
-            if (self.length() > 10):
-                if (self.get_capacity() / 2 < 10):
-                    self.resize(10)
-                else:
-                    self.resize(self.get_capacity() / 2)
-        self._size -= 1
-        for i in range(index, self.length() - index):
+        if(self.get_capacity() < 10):
+            pass
+        elif (self.length() < self.get_capacity() / 4):
+            if (self.length() * 2 < 10):
+                self.resize(10)
+            else:
+                self.resize(int(self.length() * 2))
+
+
+            # if (self.get_capacity() > 10):
+            #     # if (int(self.get_capacity() // 2 < 10)):
+            #     self.resize(10)
+            # else:
+            #
+
+        for i in range(index, self.get_capacity() - index):
             if(i == self.get_capacity() - 1):
                 self._data[i] = None
 
             else:
                 self._data[i] = self._data[i + 1]
 
+        self._size -= 1
 
 
 
