@@ -272,7 +272,12 @@ class DynamicArray:
         """
         TODO: Write this implementation
         """
-        pass
+        newArray = DynamicArray()
+        for i in range(0, self.length()):
+            if filter_func(self._data[i]):
+                newArray.append(self._data[i])
+
+        return newArray
 
     def reduce(self, reduce_func, initializer=None) -> object:
         """
@@ -485,33 +490,33 @@ if __name__ == "__main__":
     # da3.merge(da)
     # print(da3)
 
-    print("\n# map example 1")
-    da = DynamicArray([1, 5, 10, 15, 20, 25])
-    print(da)
-    print(da.map(lambda x: x ** 2))
-
-    print("\n# map example 2")
-
-
-    def double(value):
-        return value * 2
-
-
-    def square(value):
-        return value ** 2
-
-
-    def cube(value):
-        return value ** 3
-
-
-    def plus_one(value):
-        return value + 1
-
-
-    da = DynamicArray([plus_one, double, square, cube])
-    for value in [1, 10, 20]:
-        print(da.map(lambda x: x(value)))
+    # print("\n# map example 1")
+    # da = DynamicArray([1, 5, 10, 15, 20, 25])
+    # print(da)
+    # print(da.map(lambda x: x ** 2))
+    #
+    # print("\n# map example 2")
+    #
+    #
+    # def double(value):
+    #     return value * 2
+    #
+    #
+    # def square(value):
+    #     return value ** 2
+    #
+    #
+    # def cube(value):
+    #     return value ** 3
+    #
+    #
+    # def plus_one(value):
+    #     return value + 1
+    #
+    #
+    # da = DynamicArray([plus_one, double, square, cube])
+    # for value in [1, 10, 20]:
+    #     print(da.map(lambda x: x(value)))
 
     print("\n# filter example 1")
 
