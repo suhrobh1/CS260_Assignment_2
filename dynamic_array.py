@@ -229,10 +229,10 @@ class DynamicArray:
             # else:
             #
 
-        for i in range(index, self.get_capacity() - index):
+        for i in range(index, self.get_capacity() - 1):
             if(i == self.get_capacity() - 1):
                 self._data[i] = None
-
+            #elif(i == self.get_capacity() - 1)
             else:
                 self._data[i] = self._data[i + 1]
 
@@ -360,6 +360,32 @@ if __name__ == "__main__":
     # print(da)
 
     print("\n# remove_at_index - example 1")
+
+
+    da = DynamicArray(["f", "h", "yFNd^qmamM", "oyCJ_oZF", "Cytf^", "MJx", "Ia`^", "[^XWIIG"])
+    print(da)
+    da.remove_at_index(2)
+    print(da)
+    print()
+    da = DynamicArray(["a1", "b2", "c3", "d4", "e5", "f6", "g7", "h8"])
+    print(da)
+    da.remove_at_index(2)
+    print(da)
+    print()
+    da = DynamicArray([10, 20, 30, 40, 50, 60, 70, 80])
+    print(da)
+    da.remove_at_index(4)
+    print(da)
+    print()
+    print()
+    print()
+
+
+
+
+
+
+
     da = DynamicArray([10, 20, 30, 40, 50, 60, 70, 80])
     print(da)
     da.remove_at_index(0)
@@ -368,6 +394,10 @@ if __name__ == "__main__":
     print(da)
     da.remove_at_index(2)
     print(da)
+
+
+
+
 
     print("\n# remove_at_index - example 2")
     da = DynamicArray([1024])
