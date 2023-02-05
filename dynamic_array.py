@@ -290,20 +290,54 @@ class DynamicArray:
             else:
                 return None
 
-        for i in range(0, self.length()):
-            # print("initializer in for loop: ", initializer)
-            if (i == self.length() - 1 and initializer is None):
-                return self._data[i]
 
-            elif initializer:
-                initializer = reduce_func(initializer, self._data[i])
+        if (self.length() == 1):
+            if initializer is None:
+                return self._data[0]
             else:
-                #print("smoke")
-                initializer = self._data[i]
-                #print("initializer after assgnmnet: ", initializer)
-                initializer = reduce_func(initializer, self._data[i + 1])
-                #print("initializer last: ", initializer)
-        return initializer
+                return reduce_func(initializer, self._data[0])
+
+        setInitializer = False
+        if initializer is None:
+            value = self._data[0]
+            setInitializer = True
+            for i in range(1, self.length()):
+                value = reduce_func(value, self._data[i])
+        else:
+            value = initializer
+            for i in range(0, self.length()):
+                value = reduce_func(value, self._data[i])
+
+        # # for element in it:
+        # for i in range(0, self.length() - 1):
+        #     if setInitializer:
+        #         value = reduce_func(value, self._data[i + 1])
+        #     else:
+        #         value = reduce_func(value, self._data[i])
+        return value
+
+
+
+
+
+
+        #for i in range(0, self.length()):
+        #     # print("initializer in for loop: ", initializer)
+        #     if (self.length() == 1 and initializer is None):
+        #         return self._data[i]
+        #     elif(initializer is None):
+        #         initializer = self._data[i]
+        #         initializer = reduce_func(initializer, self._data[i + 1])
+        #
+        #     elif initializer:
+        #         initializer = reduce_func(initializer, self._data[i])
+        #     # else:
+        #     #     #print("smoke")
+        #     #     initializer = self._data[i]
+        #     #     #print("initializer after assgnmnet: ", initializer)
+        #     #     initializer = reduce_func(initializer, self._data[i + 1])
+        #     #     #print("initializer last: ", initializer)
+        # return initializer
 
 def find_mode(arr: DynamicArray) -> (DynamicArray, int):
     """
@@ -561,11 +595,12 @@ if __name__ == "__main__":
     # print(da)
     # for length in [3, 4, 7]:
     #     print(da.filter(lambda word: is_long_word(word, length)))
-    print("\n# reduce example 0")
-    values = [100]
+    print()
+    values = ["bllokce", "oiwrazylru", "vxfsnlzn", "ra", "tqhbsrhpjm", "t", "bikrqesrn", "weux", "jdcawpshvm", "oloesc"]
     da = DynamicArray(values)
     print(da)
-    print(da.reduce(lambda x, y: (x // 5 + y ** 2)))
+    print("bllokceoiwrazylruvxfsnlznratqhbsrhpjmtbikrqesrnweuxjdcawpshvmoloesc")
+    print(da.reduce(lambda x, y:(x + y)))
 
 
     print("\n# reduce example 1")
@@ -577,7 +612,6 @@ if __name__ == "__main__":
 
     print("\n# reduce example 2")
     da = DynamicArray([100])
-    print(da.reduce(lambda x, y: (x // 5 + y ** 2)))
     print(da.reduce(lambda x, y: x + y ** 2))
     print(da.reduce(lambda x, y: x + y ** 2, -1))
     da.remove_at_index(0)
