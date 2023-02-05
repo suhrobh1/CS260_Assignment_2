@@ -222,13 +222,7 @@ class DynamicArray:
             else:
                 self.resize(int(self.length() * 2))
 
-
-            # if (self.get_capacity() > 10):
-            #     # if (int(self.get_capacity() // 2 < 10)):
-            #     self.resize(10)
-            # else:
-            #
-
+        # Overwriting starting at given index (removal process)
         for i in range(index, self.get_capacity() - 1):
             if(i == self.get_capacity() - 1):
                 self._data[i] = None
@@ -236,15 +230,26 @@ class DynamicArray:
             else:
                 self._data[i] = self._data[i + 1]
 
+        # Decrementing size
         self._size -= 1
-
 
 
     def slice(self, start_index: int, size: int) -> "DynamicArray":
         """
         TODO: Write this implementation
         """
-        pass
+        if (start_index < 0 or start_index > self.length() - 1):
+            raise DynamicArrayException
+            return
+        if (size < 0 or size > self.length() - start_index):
+            raise DynamicArrayException
+            return
+
+        newArray = DynamicArray()
+        for i in range(start_index, size + start_index):
+            newArray.append(self._data[i])
+
+        return newArray
 
     def merge(self, second_da: "DynamicArray") -> None:
         """
@@ -359,85 +364,85 @@ if __name__ == "__main__":
     #         print("Cannot insert value", value, "at index", index)
     # print(da)
 
-    print("\n# remove_at_index - example 1")
-
-
-    da = DynamicArray(["f", "h", "yFNd^qmamM", "oyCJ_oZF", "Cytf^", "MJx", "Ia`^", "[^XWIIG"])
-    print(da)
-    da.remove_at_index(2)
-    print(da)
-    print()
-    da = DynamicArray(["a1", "b2", "c3", "d4", "e5", "f6", "g7", "h8"])
-    print(da)
-    da.remove_at_index(2)
-    print(da)
-    print()
-    da = DynamicArray([10, 20, 30, 40, 50, 60, 70, 80])
-    print(da)
-    da.remove_at_index(4)
-    print(da)
-    print()
-    print()
-    print()
-
-
-
-
-
-
-
-    da = DynamicArray([10, 20, 30, 40, 50, 60, 70, 80])
-    print(da)
-    da.remove_at_index(0)
-    print(da)
-    da.remove_at_index(6)
-    print(da)
-    da.remove_at_index(2)
-    print(da)
-
-
-
-
-
-    print("\n# remove_at_index - example 2")
-    da = DynamicArray([1024])
-    print(da)
-    for i in range(17):
-        da.insert_at_index(i, i)
-    print(da.length(), da.get_capacity())
-    for i in range(16, -1, -1):
-        da.remove_at_index(0)
-    print(da)
-
-    print("\n# remove_at_index - example 3")
-    da = DynamicArray()
-    print(da.length(), da.get_capacity())
-    [da.append(1) for i in range(100)]  # step 1 - add 100 elements
-    print(da.length(), da.get_capacity())
-    [da.remove_at_index(0) for i in range(68)]  # step 2 - remove 68 elements
-    print(da.length(), da.get_capacity())
-    da.remove_at_index(0)  # step 3 - remove 1 element
-    print(da.length(), da.get_capacity())
-    da.remove_at_index(0)  # step 4 - remove 1 element
-    print(da.length(), da.get_capacity())
-    [da.remove_at_index(0) for i in range(14)]  # step 5 - remove 14 elements
-    print(da.length(), da.get_capacity())
-    da.remove_at_index(0)  # step 6 - remove 1 element
-    print(da.length(), da.get_capacity())
-    da.remove_at_index(0)  # step 7 - remove 1 element
-    print(da.length(), da.get_capacity())
-
-    for i in range(14):
-        print("Before remove_at_index(): ", da.length(), da.get_capacity(), end="")
-        da.remove_at_index(0)
-        print(" After remove_at_index(): ", da.length(), da.get_capacity())
-
-    print("\n# remove at index - example 4")
-    da = DynamicArray([1, 2, 3, 4, 5])
-    print(da)
-    for _ in range(5):
-        da.remove_at_index(0)
-        print(da)
+    # print("\n# remove_at_index - example 1")
+    #
+    #
+    # da = DynamicArray(["f", "h", "yFNd^qmamM", "oyCJ_oZF", "Cytf^", "MJx", "Ia`^", "[^XWIIG"])
+    # print(da)
+    # da.remove_at_index(2)
+    # print(da)
+    # print()
+    # da = DynamicArray(["a1", "b2", "c3", "d4", "e5", "f6", "g7", "h8"])
+    # print(da)
+    # da.remove_at_index(2)
+    # print(da)
+    # print()
+    # da = DynamicArray([10, 20, 30, 40, 50, 60, 70, 80])
+    # print(da)
+    # da.remove_at_index(4)
+    # print(da)
+    # print()
+    # print()
+    # print()
+    #
+    #
+    #
+    #
+    #
+    #
+    #
+    # da = DynamicArray([10, 20, 30, 40, 50, 60, 70, 80])
+    # print(da)
+    # da.remove_at_index(0)
+    # print(da)
+    # da.remove_at_index(6)
+    # print(da)
+    # da.remove_at_index(2)
+    # print(da)
+    #
+    #
+    #
+    #
+    #
+    # print("\n# remove_at_index - example 2")
+    # da = DynamicArray([1024])
+    # print(da)
+    # for i in range(17):
+    #     da.insert_at_index(i, i)
+    # print(da.length(), da.get_capacity())
+    # for i in range(16, -1, -1):
+    #     da.remove_at_index(0)
+    # print(da)
+    #
+    # print("\n# remove_at_index - example 3")
+    # da = DynamicArray()
+    # print(da.length(), da.get_capacity())
+    # [da.append(1) for i in range(100)]  # step 1 - add 100 elements
+    # print(da.length(), da.get_capacity())
+    # [da.remove_at_index(0) for i in range(68)]  # step 2 - remove 68 elements
+    # print(da.length(), da.get_capacity())
+    # da.remove_at_index(0)  # step 3 - remove 1 element
+    # print(da.length(), da.get_capacity())
+    # da.remove_at_index(0)  # step 4 - remove 1 element
+    # print(da.length(), da.get_capacity())
+    # [da.remove_at_index(0) for i in range(14)]  # step 5 - remove 14 elements
+    # print(da.length(), da.get_capacity())
+    # da.remove_at_index(0)  # step 6 - remove 1 element
+    # print(da.length(), da.get_capacity())
+    # da.remove_at_index(0)  # step 7 - remove 1 element
+    # print(da.length(), da.get_capacity())
+    #
+    # for i in range(14):
+    #     print("Before remove_at_index(): ", da.length(), da.get_capacity(), end="")
+    #     da.remove_at_index(0)
+    #     print(" After remove_at_index(): ", da.length(), da.get_capacity())
+    #
+    # print("\n# remove at index - example 4")
+    # da = DynamicArray([1, 2, 3, 4, 5])
+    # print(da)
+    # for _ in range(5):
+    #     da.remove_at_index(0)
+    #     print(da)
 
     print("\n# slice example 1")
     da = DynamicArray([1, 2, 3, 4, 5, 6, 7, 8, 9])
