@@ -293,8 +293,8 @@ class DynamicArray:
         for i in range(0, self.length()):
             # print("initializer in for loop: ", initializer)
             if (i == self.length() - 1 and initializer is None):
-                initializer = reduce_func(self._data[i], 0)
-                return initializer
+                return self._data[i]
+
             elif initializer:
                 initializer = reduce_func(initializer, self._data[i])
             else:
@@ -561,6 +561,12 @@ if __name__ == "__main__":
     # print(da)
     # for length in [3, 4, 7]:
     #     print(da.filter(lambda word: is_long_word(word, length)))
+    print("\n# reduce example 0")
+    values = [100]
+    da = DynamicArray(values)
+    print(da)
+    print(da.reduce(lambda x, y: (x // 5 + y ** 2)))
+
 
     print("\n# reduce example 1")
     values = [100, 5, 10, 15, 20, 25]
@@ -571,6 +577,7 @@ if __name__ == "__main__":
 
     print("\n# reduce example 2")
     da = DynamicArray([100])
+    print(da.reduce(lambda x, y: (x // 5 + y ** 2)))
     print(da.reduce(lambda x, y: x + y ** 2))
     print(da.reduce(lambda x, y: x + y ** 2, -1))
     da.remove_at_index(0)
