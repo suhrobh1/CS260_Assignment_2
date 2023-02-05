@@ -190,7 +190,9 @@ class DynamicArray:
             #initial_insert = True
             for i in range(index + 1, self.get_capacity()):
                 #if initial_insert:
-                if (self._data[i + 1] is not None):
+                if (i == self.get_capacity() - 1):
+                    self._data[i] = temp
+                elif (self._data[i + 1] is not None):
                     temp2 = self._data[i]
                     self._data[i] = temp
                     temp = temp2
