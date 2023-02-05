@@ -176,8 +176,9 @@ class DynamicArray:
         """
         TODO: Write this implementation
         """
-        if (index <0 and index > self.length()):
+        if (index < 0 or index > self.length()):
             raise DynamicArrayException
+            return
 
         if self.get_capacity() == self.length():
             self.resize(self.get_capacity() * 2)
