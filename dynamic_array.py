@@ -255,7 +255,9 @@ class DynamicArray:
         """
         TODO: Write this implementation
         """
-        pass
+
+        for i in range(0, second_da.length()):
+            self.append(second_da.get_at_index(i))
 
     def map(self, map_func) -> "DynamicArray":
         """
@@ -444,23 +446,23 @@ if __name__ == "__main__":
     #     da.remove_at_index(0)
     #     print(da)
 
-    print("\n# slice example 1")
-    da = DynamicArray([1, 2, 3, 4, 5, 6, 7, 8, 9])
-    da_slice = da.slice(1, 3)
-    print(da, da_slice, sep="\n")
-    da_slice.remove_at_index(0)
-    print(da, da_slice, sep="\n")
-
-    print("\n# slice example 2")
-    da = DynamicArray([10, 11, 12, 13, 14, 15, 16])
-    print("SOURCE:", da)
-    slices = [(0, 7), (-1, 7), (0, 8), (2, 3), (5, 0), (5, 3), (6, 1), (6, -1)]
-    for i, cnt in slices:
-        print("Slice", i, "/", cnt, end="")
-        try:
-            print(" --- OK: ", da.slice(i, cnt))
-        except:
-            print(" --- exception occurred.")
+    # print("\n# slice example 1")
+    # da = DynamicArray([1, 2, 3, 4, 5, 6, 7, 8, 9])
+    # da_slice = da.slice(1, 3)
+    # print(da, da_slice, sep="\n")
+    # da_slice.remove_at_index(0)
+    # print(da, da_slice, sep="\n")
+    #
+    # print("\n# slice example 2")
+    # da = DynamicArray([10, 11, 12, 13, 14, 15, 16])
+    # print("SOURCE:", da)
+    # slices = [(0, 7), (-1, 7), (0, 8), (2, 3), (5, 0), (5, 3), (6, 1), (6, -1)]
+    # for i, cnt in slices:
+    #     print("Slice", i, "/", cnt, end="")
+    #     try:
+    #         print(" --- OK: ", da.slice(i, cnt))
+    #     except:
+    #         print(" --- exception occurred.")
 
     print("\n# merge example 1")
     da = DynamicArray([1, 2, 3, 4, 5])
