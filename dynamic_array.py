@@ -330,6 +330,10 @@ def find_mode(arr: DynamicArray) -> (DynamicArray, int):
     newMode = None
     for i in range(0, arr.length() - 1):
         if (arr.get_at_index(i) == arr.get_at_index(i + 1)):
+            if(mode.length() == 1):
+                mode_index = 0
+
+
             if (mode.get_at_index(mode_index) == arr.get_at_index(i)): # same as curr mode
                 if(newMode):
                     temp_frequency += 1
@@ -350,7 +354,7 @@ def find_mode(arr: DynamicArray) -> (DynamicArray, int):
                 # clearing the mode array off existing less frequent modes
 
                 temp = mode.get_at_index(0)
-                mode.set_at_index(0, mode.get_at_index(mode_index))
+                mode.set_at_index(0, arr.get_at_index(i))
                 while(mode.length() >= 2):
                     mode.remove_at_index(1)
 
@@ -657,6 +661,7 @@ if __name__ == "__main__":
 
     print("\n# find_mode - example 1")
     test_cases = (
+        ["HvocSl"," dCzZHEiHsc", "fLYqFsczRm", "ppBhWP", "ppBhWP", "svk", "uz", "uz", "uz"],
         ["zgvNS", "s", "ms"," kmroiPTYd", "fhnAFNy", "awfUaHygN", "U", "TDYSb", "GDaiXMEood", "EoD", "BsDL", "BsDL"],
         [21, 195, 346, 530, 752, 752],
         ["Apple", "Banana", "Banana", "Carrot", "Carrot",
