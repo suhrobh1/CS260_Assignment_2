@@ -221,7 +221,6 @@ class DynamicArray:
                 self.resize(10)
             else:
                 self.resize(int(self.length() * 2))
-
         # Overwriting starting at given index (removal process)
         for i in range(index, self.get_capacity() - 1):
             if(i == self.get_capacity() - 1):
@@ -229,7 +228,6 @@ class DynamicArray:
             #elif(i == self.get_capacity() - 1)
             else:
                 self._data[i] = self._data[i + 1]
-
         # Decrementing size
         self._size -= 1
 
@@ -248,14 +246,12 @@ class DynamicArray:
         newArray = DynamicArray()
         for i in range(start_index, size + start_index):
             newArray.append(self._data[i])
-
         return newArray
 
     def merge(self, second_da: "DynamicArray") -> None:
         """
         TODO: Write this implementation
         """
-
         for i in range(0, second_da.length()):
             self.append(second_da.get_at_index(i))
 
@@ -266,7 +262,6 @@ class DynamicArray:
         newArray = DynamicArray()
         for i in range(0, self.length()):
             newArray.append(map_func(self._data[i]))
-
         return newArray
     def filter(self, filter_func) -> "DynamicArray":
         """
@@ -276,20 +271,17 @@ class DynamicArray:
         for i in range(0, self.length()):
             if filter_func(self._data[i]):
                 newArray.append(self._data[i])
-
         return newArray
 
     def reduce(self, reduce_func, initializer=None) -> object:
         """
         TODO: Write this implementation
         """
-        #print("is empty?", self.is_empty())
         if self.is_empty():
             if initializer:
                 return initializer
             else:
                 return None
-
 
         if (self.length() == 1):
             if initializer is None:
@@ -297,54 +289,97 @@ class DynamicArray:
             else:
                 return reduce_func(initializer, self._data[0])
 
-        setInitializer = False
         if initializer is None:
             value = self._data[0]
-            setInitializer = True
             for i in range(1, self.length()):
                 value = reduce_func(value, self._data[i])
         else:
             value = initializer
             for i in range(0, self.length()):
                 value = reduce_func(value, self._data[i])
-
-        # # for element in it:
-        # for i in range(0, self.length() - 1):
-        #     if setInitializer:
-        #         value = reduce_func(value, self._data[i + 1])
-        #     else:
-        #         value = reduce_func(value, self._data[i])
         return value
-
-
-
-
-
-
-        #for i in range(0, self.length()):
-        #     # print("initializer in for loop: ", initializer)
-        #     if (self.length() == 1 and initializer is None):
-        #         return self._data[i]
-        #     elif(initializer is None):
-        #         initializer = self._data[i]
-        #         initializer = reduce_func(initializer, self._data[i + 1])
-        #
-        #     elif initializer:
-        #         initializer = reduce_func(initializer, self._data[i])
-        #     # else:
-        #     #     #print("smoke")
-        #     #     initializer = self._data[i]
-        #     #     #print("initializer after assgnmnet: ", initializer)
-        #     #     initializer = reduce_func(initializer, self._data[i + 1])
-        #     #     #print("initializer last: ", initializer)
-        # return initializer
 
 def find_mode(arr: DynamicArray) -> (DynamicArray, int):
     """
     TODO: Write this implementation
     """
-    pass
+    mode = DynamicArray()
+    # grabbing first val of the index and set as mode
+    mode.append(arr.get_at_index(0))
+    frequency = 1
+    temp_frequency = 1
 
+    if(arr.length() == 1):
+        return(mode, frequency)
+    mode_index = 0
+    # for i in range(0, arr.length() - 1):
+    #     if (arr.get_at_index(i) == arr.get_at_index(i + 1)):
+    #         if (mode.get_at_index(mode_index) == arr.get_at_index(i)): # same as curr mode
+    #             frequency += 1
+    #         elif (mode.get_at_index(mode_index) == arr.get_at_index(0) and frequency == 1): # diff from default mode
+    #             mode.set_at_index(mode_index, arr.get_at_index(i))
+    #             frequency += 1
+    #         elif (mode.get_at_index(mode_index) != arr.get_at_index(i)): # diff from current mode
+    #             temp_frequency += 1
+    #
+    #         if(frequency == temp_frequency):
+    #             mode.append(arr.get_at_index(i))
+    #             mode_index += 1
+    #     else:
+    #         tempFrequency = 1
+    newMode = None
+    for i in range(0, arr.length() - 1):
+        if (arr.get_at_index(i) == arr.get_at_index(i + 1)):
+            if (mode.get_at_index(mode_index) == arr.get_at_index(i)): # same as curr mode
+                if(newMode):
+                    temp_frequency += 1
+                else:
+                    frequency += 1
+
+
+            elif (mode.get_at_index(mode_index) == arr.get_at_index(0) and frequency == 1): # diff from default mode
+                mode.set_at_index(mode_index, arr.get_at_index(i))
+                frequency += 1
+            elif (mode.get_at_index(mode_index) != arr.get_at_index(i)): # diff from current mode
+                temp_frequency += 1
+
+
+            if(frequency < temp_frequency):
+
+                frequency = temp_frequency
+                # clearing the mode array off existing less frequent modes
+
+                temp = mode.get_at_index(0)
+                mode.set_at_index(0, mode.get_at_index(mode_index))
+                while(mode.length() >= 2):
+                    mode.remove_at_index(1)
+
+                mode_index = 0
+                temp_frequency = 1
+                newMode = False
+            elif(frequency == temp_frequency):
+                mode.append(arr.get_at_index(i))
+                mode_index += 1
+                newMode = True
+        else:
+            temp_frequency = 1
+            if (frequency == temp_frequency):
+                mode.append(arr.get_at_index(i + 1))
+                mode_index += 1
+                newMode = True
+
+
+
+
+
+
+
+
+
+
+    # print(mode.print_da_variables())
+    # print( "frequency: ", frequency)
+    return (mode, frequency)
 
 # ------------------- BASIC TESTING -----------------------------------------
 
@@ -595,36 +630,36 @@ if __name__ == "__main__":
     # print(da)
     # for length in [3, 4, 7]:
     #     print(da.filter(lambda word: is_long_word(word, length)))
-    print()
-    values = ["bllokce", "oiwrazylru", "vxfsnlzn", "ra", "tqhbsrhpjm", "t", "bikrqesrn", "weux", "jdcawpshvm", "oloesc"]
-    da = DynamicArray(values)
-    print(da)
-    print("bllokceoiwrazylruvxfsnlznratqhbsrhpjmtbikrqesrnweuxjdcawpshvmoloesc")
-    print(da.reduce(lambda x, y:(x + y)))
-
-
-    print("\n# reduce example 1")
-    values = [100, 5, 10, 15, 20, 25]
-    da = DynamicArray(values)
-    print(da)
-    print(da.reduce(lambda x, y: (x // 5 + y ** 2)))
-    print(da.reduce(lambda x, y: (x + y ** 2), -1))
-
-    print("\n# reduce example 2")
-    da = DynamicArray([100])
-    print(da.reduce(lambda x, y: x + y ** 2))
-    print(da.reduce(lambda x, y: x + y ** 2, -1))
-    da.remove_at_index(0)
-    print(da.reduce(lambda x, y: x + y ** 2))
-    print(da.reduce(lambda x, y: x + y ** 2, -1))
+    # print()
+    # values = ["bllokce", "oiwrazylru", "vxfsnlzn", "ra", "tqhbsrhpjm", "t", "bikrqesrn", "weux", "jdcawpshvm", "oloesc"]
+    # da = DynamicArray(values)
+    # print(da)
+    # print("bllokceoiwrazylruvxfsnlznratqhbsrhpjmtbikrqesrnweuxjdcawpshvmoloesc")
+    # print(da.reduce(lambda x, y:(x + y)))
+    #
+    #
+    # print("\n# reduce example 1")
+    # values = [100, 5, 10, 15, 20, 25]
+    # da = DynamicArray(values)
+    # print(da)
+    # print(da.reduce(lambda x, y: (x // 5 + y ** 2)))
+    # print(da.reduce(lambda x, y: (x + y ** 2), -1))
+    #
+    # print("\n# reduce example 2")
+    # da = DynamicArray([100])
+    # print(da.reduce(lambda x, y: x + y ** 2))
+    # print(da.reduce(lambda x, y: x + y ** 2, -1))
+    # da.remove_at_index(0)
+    # print(da.reduce(lambda x, y: x + y ** 2))
+    # print(da.reduce(lambda x, y: x + y ** 2, -1))
 
     print("\n# find_mode - example 1")
-    test_cases = (
-        [1, 1, 2, 3, 3, 4],
-        [1, 2, 3, 4, 5],
-        ["Apple", "Banana", "Banana", "Carrot", "Carrot",
+    test_cases = (["Apple", "Banana", "Banana", "Carrot", "Carrot",
          "Date", "Date", "Date", "Eggplant", "Eggplant", "Eggplant",
-         "Fig", "Fig", "Grape"]
+         "Fig", "Fig", "Grape"],
+        [1, 1, 2, 3, 3, 4],
+        [1, 2, 3, 4, 5]
+
     )
 
     for case in test_cases:
