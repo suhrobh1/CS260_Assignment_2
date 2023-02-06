@@ -81,7 +81,12 @@ class Bag:
         """
         TODO: Write this implementation
         """
-
+        if (self._da.length() != second_bag._da.length()):
+            return False
+        for i in range(0, self._da.length()):
+            if(self.count(self._da.get_at_index(i)) != second_bag.count(second_bag._da.get_at_index(i))):
+                return False
+        return True
 
     def __iter__(self):
         """
