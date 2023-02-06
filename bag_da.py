@@ -52,25 +52,36 @@ class Bag:
         """
         TODO: Write this implementation
         """
-        pass
+        for i in range(0, self._da.length()):
+            if (self._da.get_at_index(i) == value):
+                self._da.remove_at_index(i)
+                return True
+        return False
+       # self._da.remove()
 
     def count(self, value: object) -> int:
         """
         TODO: Write this implementation
         """
-        pass
+        counter = 0
+        for i in range(0, self._da.length()):
+            if (self._da.get_at_index(i) == value):
+                counter += 1
+        return counter
+
 
     def clear(self) -> None:
         """
         TODO: Write this implementation
         """
-        pass
+        for i in range(0, self._da.length()):
+            self._da.remove_at_index(0)
 
     def equal(self, second_bag: "Bag") -> bool:
         """
         TODO: Write this implementation
         """
-        pass
+
 
     def __iter__(self):
         """
