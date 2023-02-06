@@ -357,6 +357,8 @@ def find_mode(arr: DynamicArray) -> (DynamicArray, int):
                 mode_index = 0
                 temp_frequency = 1
                 newMode = False
+                if (mode.length() < mode.get_capacity() / 4):
+                    mode.resize((int(mode.get_capacity() / 2)))
             elif(frequency == temp_frequency):
                 mode.append(arr.get_at_index(i))
                 mode_index += 1
@@ -654,7 +656,8 @@ if __name__ == "__main__":
     # print(da.reduce(lambda x, y: x + y ** 2, -1))
 
     print("\n# find_mode - example 1")
-    test_cases = (["Apple", "Banana", "Banana", "Carrot", "Carrot",
+    test_cases = ([21, 195, 346, 530, 752, 752],
+        ["Apple", "Banana", "Banana", "Carrot", "Carrot",
          "Date", "Date", "Date", "Eggplant", "Eggplant", "Eggplant",
          "Fig", "Fig", "Grape"],
         [1, 1, 2, 3, 3, 4],
