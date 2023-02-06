@@ -88,32 +88,40 @@ class Bag:
         if (self._da.length() != second_bag._da.length()):
             return False
             
-        # for i in range(0, self._da.length()):
-        #     # If the counts of the elems at index are not equal, bags are different
-        #     if(self.count(self._da.get_at_index(i)) != second_bag.count(second_bag._da.get_at_index(i))):
-        #         return False
-        # return True
-
-        index = 0
-        for i in self._da:
-            
-            index2 = 0
-            for j in second_bag._da:
-                
-                if(i == j):
-                    if(self.count(self._da.get_at_index(index)) !=second_bag.count(second_bag._da.get_at_index(index2))):
-                        # print("Count A", self.count(self._da.get_at_index(index)) )
-                        # print("Count A", second_bag.count(second_bag._da.get_at_index(index2)) )
-                        # print("i", i)
-                        # print("j", j)
-                        return False
-                
-                else:
-                    pass
-                index2 += 1
-            
-            index += 1
+        for i in range(0, self._da.length()):
+            # If the counts of the elems at index are not equal, bags are different
+            if(self.count(self._da.get_at_index(i)) != second_bag.count(self._da.get_at_index(i))):
+                return False
         return True
+
+        # index = 0
+        # for i in self._da:
+        #     isFound = None
+        #     index2 = 0
+        #     for j in second_bag._da:
+                
+        #         if isFound:
+        #             break
+                
+        #         if(index2 == second_bag._da.length() -1  and isFound == False):
+        #             return False
+
+        #         if(i == j):
+        #             isFound = True
+        #             if(self.count(self._da.get_at_index(index)) !=second_bag.count(second_bag._da.get_at_index(index2))):
+        #                 # print("Count A", self.count(self._da.get_at_index(index)) )
+        #                 # print("Count A", second_bag.count(second_bag._da.get_at_index(index2)) )
+        #                 # print("i", i)
+        #                 # print("j", j)
+        #                 return False
+
+        #         else:
+
+        #             pass
+        #         index2 += 1
+            
+        #     index += 1
+        # return True
 
 
 
@@ -192,6 +200,11 @@ if __name__ == "__main__":
     bagA = Bag([1, 2, 2])
     bagB = Bag([2, 1, 2])
     print(bagA.equal(bagB))
+
+    print("BAG EQUAL SPECIAL CASE 2")
+    bagC = Bag([1265, 63061, -60474, -43787, -12265])
+    bagD = Bag([-60474, -43787, 63061, -26449, 1265])
+    print(bagC.equal(bagD))
 
     
     print("\n# __iter__(), __next__() example 1")
