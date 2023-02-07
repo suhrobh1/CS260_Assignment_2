@@ -1,9 +1,9 @@
-# Name:
-# OSU Email:
+# Name: Suhrob Hasanov
+# OSU Email: hasanovs@oregon
 # Course: CS261 - Data Structures
-# Assignment:
-# Due Date:
-# Description:
+# Assignment: Assignment 2
+# Due Date: 2/6/23
+# Description: Dynamic Array implementation. 
 
 
 from static_array import StaticArray
@@ -134,16 +134,17 @@ class DynamicArray:
 
     def resize(self, new_capacity: int) -> None:
         """
-        TODO: Write this implementation
+        Resizes the dynamic array based on the value passed. 
         """
         # print("self.get_capacity()", self.get_capacity())
         # print("self.length()", self.length())
+        
+        # Capacity param check
         if new_capacity <= 0:
             return
         elif new_capacity < self.length():
             return
         else:
-            # print("Chihuahua")
             new_array = StaticArray(new_capacity)
             for i in range(0, self.length()):
                 new_array[i] = self._data[i]
@@ -152,11 +153,10 @@ class DynamicArray:
 
     def append(self, value: object) -> None:
         """
-        TODO: Write this implementation
+        Adds passed value to the end of the dynamic array.
         """
-
+        
         if self.get_capacity() == self.length():
-            # print("self.get_capacity() BEFORE", self.get_capacity())
             # Calling resize and passing double of current cap
             self.resize(self.get_capacity() * 2)
             # print("self.get_capacity() AFTER", self.get_capacity())
@@ -174,7 +174,7 @@ class DynamicArray:
 
     def insert_at_index(self, index: int, value: object) -> None:
         """
-        TODO: Write this implementation
+        Inserts the passed value at a given index into the dynamic array.
         """
         if (index < 0 or index > self.length()):
             raise DynamicArrayException
@@ -182,14 +182,13 @@ class DynamicArray:
 
         if self.get_capacity() == self.length():
             self.resize(self.get_capacity() * 2)
-
+        # This block inserts the value if there is existing value at index
         if(self._data[index] is not None):
             temp = self._data[index]
             self._data[index]= value
             self._size += 1
-            #initial_insert = True
+            # This block reassigns (moves) the items once new val is inserted
             for i in range(index + 1, self.get_capacity()):
-                #if initial_insert:
                 if (i == self.get_capacity() - 1):
                     self._data[i] = temp
                 elif (self._data[i + 1] is not None):
@@ -200,13 +199,14 @@ class DynamicArray:
                     self._data[i + 1] = self._data[i]
                     self._data[i] = temp
                     break
+        # If no value at index
         else:
             self._data[index] = value
             self._size += 1
 
     def remove_at_index(self, index: int) -> None:
         """
-        TODO: Write this implementation
+        Removes value at a given index.
         """
         # Index check
         if (index < 0 or index > self.length() - 1):
@@ -225,7 +225,6 @@ class DynamicArray:
         for i in range(index, self.get_capacity() - 1):
             if(i == self.get_capacity() - 1):
                 self._data[i] = None
-            #elif(i == self.get_capacity() - 1)
             else:
                 self._data[i] = self._data[i + 1]
         # Decrementing size
@@ -234,15 +233,17 @@ class DynamicArray:
 
     def slice(self, start_index: int, size: int) -> "DynamicArray":
         """
-        TODO: Write this implementation
+        Returns given size of values starting at a given index.
         """
+        # Index check
         if (start_index < 0 or start_index > self.length() - 1):
             raise DynamicArrayException
             return
+        # Size check
         if (size < 0 or size > self.length() - start_index):
             raise DynamicArrayException
             return
-
+        # Getting the values for the new array, array of return values
         newArray = DynamicArray()
         for i in range(start_index, size + start_index):
             newArray.append(self._data[i])
@@ -250,58 +251,65 @@ class DynamicArray:
 
     def merge(self, second_da: "DynamicArray") -> None:
         """
-        TODO: Write this implementation
+        Merges two dynamic arrays. 
         """
         for i in range(0, second_da.length()):
             self.append(second_da.get_at_index(i))
 
     def map(self, map_func) -> "DynamicArray":
         """
-        TODO: Write this implementation
+        Returns the results after applying the passed function. 
         """
         newArray = DynamicArray()
         for i in range(0, self.length()):
+            # Applying the passed unction to the each item in array
             newArray.append(map_func(self._data[i]))
         return newArray
+        
     def filter(self, filter_func) -> "DynamicArray":
         """
-        TODO: Write this implementation
+        Returns the items in the dynamic array that meet the requirements of the filter function.
         """
         newArray = DynamicArray()
         for i in range(0, self.length()):
             if filter_func(self._data[i]):
+                # if filter_func returns true, the item at index is added to the return array
                 newArray.append(self._data[i])
         return newArray
 
     def reduce(self, reduce_func, initializer=None) -> object:
         """
-        TODO: Write this implementation
+        Returns the result of passed function applied to the items in the dynamic array.
         """
+        # Check for initializer
         if self.is_empty():
             if initializer:
                 return initializer
             else:
                 return None
-
+        # If array has only one item
         if (self.length() == 1):
             if initializer is None:
                 return self._data[0]
             else:
                 return reduce_func(initializer, self._data[0])
-
+        # If no initializer passed
         if initializer is None:
             value = self._data[0]
             for i in range(1, self.length()):
+                # Applying reduce function to each item of array
                 value = reduce_func(value, self._data[i])
+        # initializer was passed
         else:
             value = initializer
             for i in range(0, self.length()):
+                # Applying reduce function to each item of array
                 value = reduce_func(value, self._data[i])
         return value
 
 def find_mode(arr: DynamicArray) -> (DynamicArray, int):
     """
-    TODO: Write this implementation
+    Returns the mode and highest frequency number of the dynamic array.
     """
     mode = DynamicArray()
     # grabbing first val of the index and set as mode
@@ -312,21 +320,6 @@ def find_mode(arr: DynamicArray) -> (DynamicArray, int):
     if(arr.length() == 1):
         return(mode, frequency)
     mode_index = 0
-    # for i in range(0, arr.length() - 1):
-    #     if (arr.get_at_index(i) == arr.get_at_index(i + 1)):
-    #         if (mode.get_at_index(mode_index) == arr.get_at_index(i)): # same as curr mode
-    #             frequency += 1
-    #         elif (mode.get_at_index(mode_index) == arr.get_at_index(0) and frequency == 1): # diff from default mode
-    #             mode.set_at_index(mode_index, arr.get_at_index(i))
-    #             frequency += 1
-    #         elif (mode.get_at_index(mode_index) != arr.get_at_index(i)): # diff from current mode
-    #             temp_frequency += 1
-    #
-    #         if(frequency == temp_frequency):
-    #             mode.append(arr.get_at_index(i))
-    #             mode_index += 1
-    #     else:
-    #         tempFrequency = 1
     newMode = None
     for i in range(0, arr.length() - 1):
         if (arr.get_at_index(i) == arr.get_at_index(i + 1)):
@@ -339,7 +332,6 @@ def find_mode(arr: DynamicArray) -> (DynamicArray, int):
                     temp_frequency += 1
                 else:
                     frequency += 1
-
 
             elif (mode.get_at_index(mode_index) == arr.get_at_index(0) and frequency == 1): # diff from default mode
                 mode.set_at_index(mode_index, arr.get_at_index(i))
@@ -355,17 +347,18 @@ def find_mode(arr: DynamicArray) -> (DynamicArray, int):
 
                 temp = mode.get_at_index(0)
                 mode.set_at_index(0, arr.get_at_index(i))
+                # Deleting previous modes since new higher mode was identified
                 while(mode.length() >= 2):
                     mode.remove_at_index(1)
-
                 mode_index = 0
                 temp_frequency = 1
                 newMode = False
+                # Adjusting the capacity as the mode array changes
                 if (mode.length() < mode.get_capacity() / 4):
                     mode.resize((round(mode.get_capacity() / 4)) * 2)
             elif(frequency == temp_frequency):
-                mode.append(arr.get_at_index(i))
                 mode_index += 1
+                mode.insert_at_index(mode_index, arr.get_at_index(i))
                 newMode = True
         else:
             temp_frequency = 1
@@ -374,17 +367,6 @@ def find_mode(arr: DynamicArray) -> (DynamicArray, int):
                 mode_index += 1
                 newMode = True
 
-
-
-
-
-
-
-
-
-
-    # print(mode.print_da_variables())
-    # print( "frequency: ", frequency)
     return (mode, frequency)
 
 # ------------------- BASIC TESTING -----------------------------------------
